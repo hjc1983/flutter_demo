@@ -1,8 +1,9 @@
 # flutter_demo
 
-Rock Paper Scissors with Flutter.
+I made this for [Flutter Create contest](https://flutter.dev/create). 
+The challenge was to build something interesting, inspiring, and beautiful with Flutter using 5KB or less of Dart code.
 
-We love Rock Paper Scissors!! 
+We all love, and know Rock Paper Scissors Game!! 
 
 Rules are simple, Rock beats the scissors, Paper beats the rock and Scissors beat the paper. 
 

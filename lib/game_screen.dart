@@ -18,35 +18,35 @@ class _GameScreenState extends State<GameScreen> {
   int player2Score = 0;
   int drawScore = 0;
 
-  // void _resetGame() {
-  //   player1Score = 0;
-  //   player2Score = 0;
-  //   drawScore = 0;
-  //   //round = 0;
-  // }
-
   void _startOnePersonGame(HandMove player) {
     game = new PlayingGame();
-
     int randomNumber = Random().nextInt(3);
-    HandMove randomMove = HandMove.values[randomNumber];
 
     game.player1Move = player;
-    game.player2Move = randomMove;
-    winOrLost = game.outcome();
+    game.player2Move = HandMove.values[randomNumber];
+
+    winOrLost = game.outcomeInText();
+
+    boardCounts(game.outcome());
 
     setState(() {
       games.add(game);
     });
   }
 
-  // void _roundReset() {
-  //   //   if (player1Score > 3 || player2Score > 3 || drawScore > 3) { //useless as i didn't have those in state
-  //   if (round == 5) {
-  //     _resetGame();
-  //     print("\n\nReseting the game \n\n");
-  //   }
-  // }
+  void boardCounts(int outcome) {
+    switch (outcome) {
+      case 1:
+        player1Score++;
+        break;
+      case 2:
+        player2Score++;
+        break;
+      default:
+        drawScore++;
+        break;
+    }
+  }
 
   @override
   void initState() {
@@ -64,8 +64,6 @@ class _GameScreenState extends State<GameScreen> {
         title: new Text('Lets Play'),
         backgroundColor: Colors.orange,
       ),
-
-      //hit Ctrl+space in intellij to know what are the options you can use in flutter widgets
       body: new Center(
           child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -96,6 +94,11 @@ class _GameScreenState extends State<GameScreen> {
                       game.player2Move.toString().split('.').last +
                       ".png") //Text("$player2"),
                   )
+            ]),
+            new Row(children: <Widget>[
+              Text("Won # $player1Score"),
+              Text("Loss # $player2Score"),
+              Text("Draw # $drawScore"),
             ]),
             new Row(children: <Widget>[
               Expanded(

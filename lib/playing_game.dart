@@ -4,13 +4,23 @@ enum HandMove { rock, paper, scissors }
 enum ResultType { rock, paper, scissors, shoot }
 
 class PlayingGame {
-  PlayingGame() {
-    /*
-    {
-    this.player1Score,
-    this.player2Score,
-  }
-    */
+
+  HandMove player1Move;
+  HandMove player2Move;
+
+  String outcome() {
+    switch (match(player1Move, player2Move)) {
+      case 1:
+        return ('You Won');
+        break;
+
+      case 2:
+        return ('Lost');
+        break;
+      default:
+        return('Draw!');
+        break;
+    }
   }
 
   int match(HandMove hand1, HandMove hand2) {

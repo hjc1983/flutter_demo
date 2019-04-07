@@ -11,62 +11,50 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  HandMove player1;
-  HandMove player2;
-  String winOrLoss;
+  List<PlayingGame> games = [];
+  PlayingGame game;
+  String winOrLost;
   int player1Score = 0;
   int player2Score = 0;
   int drawScore = 0;
-  int round = 0;
 
-  void _resetGame() {
-    player1Score = 0;
-    player2Score = 0;
-    drawScore = 0;
-    round = 0;
-  }
+  // void _resetGame() {
+  //   player1Score = 0;
+  //   player2Score = 0;
+  //   drawScore = 0;
+  //   //round = 0;
+  // }
 
   void _startOnePersonGame(HandMove player) {
+    game = new PlayingGame();
+
     int randomNumber = Random().nextInt(3);
     HandMove randomMove = HandMove.values[randomNumber];
-    //_roundReset();
-    int result = PlayingGame().match(player, randomMove);
-    _statusCount(result);
+
+    game.player1Move = player;
+    game.player2Move = randomMove;
+    winOrLost = game.outcome();
 
     setState(() {
-      player1 = player;
-      player2 = randomMove;
-      winOrLoss = result == 1 ? "win" : result == 2 ? "lost" : "draw";
-      round++;
+      games.add(game);
     });
-
-    print("Round # $round. \n\n");
   }
 
-  void _roundReset() {
-    //   if (player1Score > 3 || player2Score > 3 || drawScore > 3) { //useless as i didn't have those in state
-    if (round == 5) {
-      _resetGame();
-      print("\n\nReseting the game \n\n");
-    }
-  }
+  // void _roundReset() {
+  //   //   if (player1Score > 3 || player2Score > 3 || drawScore > 3) { //useless as i didn't have those in state
+  //   if (round == 5) {
+  //     _resetGame();
+  //     print("\n\nReseting the game \n\n");
+  //   }
+  // }
 
-  void _statusCount(int result) {
-    switch (result) {
-      case 1:
-        player1Score++;
-        print('Play 1 You Won');
-        break;
-
-      case 2:
-        player2Score++;
-        print('Play 2 Won');
-        break;
-      default:
-        drawScore++;
-        print('Draw!');
-        break;
-    }
+  @override
+  void initState() {
+    super.initState();
+    game = new PlayingGame();
+    game.player1Move = HandMove.rock;
+    game.player2Move = HandMove.rock;
+    winOrLost = "vs";
   }
 
   @override
@@ -83,7 +71,7 @@ class _GameScreenState extends State<GameScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
             new Text(
-              "Round $round",
+              "Round  " + games.length.toString(),
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 60.0,
@@ -93,11 +81,11 @@ class _GameScreenState extends State<GameScreen> {
             new Row(children: <Widget>[
               Expanded(
                   child: Image.asset("images/" +
-                      player1.toString().split('.').last +
+                      game.player1Move.toString().split('.').last +
                       ".png") //Text("$player1"),
                   ),
               Text(
-                '$winOrLoss',
+                '$winOrLost',
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
@@ -105,7 +93,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
               Expanded(
                   child: Image.asset("images/" +
-                      player2.toString().split('.').last +
+                      game.player2Move.toString().split('.').last +
                       ".png") //Text("$player2"),
                   )
             ]),

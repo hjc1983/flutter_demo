@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'game_screen.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -18,11 +19,7 @@ class _MyAppState extends State<MyApp> {
     return new SplashScreen(
         seconds: 3,
         navigateAfterSeconds: new AfterSplash(),
-        title: new Text(
-          'Welcome In SplashScreen',
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-        ),
-        image: new Image.network('http://via.placeholder.com/350x150'),
+        image: new Image.asset('images/logo.png'),
         backgroundColor: Colors.white,
         styleTextUnderTheLoader: new TextStyle(),
         photoSize: 100.0,
@@ -36,15 +33,23 @@ class AfterSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-          title: new Text("HomeScreen"), automaticallyImplyLeading: false),
+          title: new Text("Rock Paper Scissors"), automaticallyImplyLeading: false),
       body: new Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new Text(
-            "Loaded!",
+            "Let the Game Begin!",
             style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
           ),
+          new RaisedButton(
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            GameScreen(title: "Let's Play...")),
+                  ),
+              child: new Text('Play')),
         ],
       )),
     );

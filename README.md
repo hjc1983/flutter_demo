@@ -1,6 +1,12 @@
 # flutter_demo
 
-A new Flutter project.
+Rock Paper Scissors with Flutter.
+
+We love Rock Paper Scissors!! 
+
+Rules are simple, Rock beats the scissors, Paper beats the rock and Scissors beat the paper. 
+
+Let the Game Begin.
 
 ## Getting Started
 
@@ -14,3 +20,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
+
+
+Logo
+https://www.wrpsa.com/about/
+
+Icons
+http://icooon-mono.com/
